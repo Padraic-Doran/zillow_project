@@ -27,8 +27,10 @@ def standard_scaler(train, test):
     test_scaled = pd.DataFrame(scaler.transform(test), columns=test.columns.values).set_index([test.index.values])
     return scaler, train_scaled, test_scaled
 
+
+
 def my_inv_transform(scaler, train_scaled, test_scaled):
-    train = pd.DataFrame(scaler.inverse_transform(train_scaled), columns=train_scaled.columns.values).set_index([train_scaled.index.values])
+    train = pd.DataFrame(scaler.inverse_transform(train_scaled),  columns=train_scaled.columns.values).set_index([train_scaled.index.values])
     test = pd.DataFrame(scaler.inverse_transform(test_scaled), columns=test_scaled.columns.values).set_index([test_scaled.index.values])
     return scaler, train, test
 
