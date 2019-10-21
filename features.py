@@ -136,7 +136,7 @@ def num_optimal_features(X_train, y_train, X_test, y_test):
     We will use the output of this function (the number of features) as input to the next function
     optimal_features, which will then run recursive feature elimination to find the n best features
     '''
-    features_range = range(1, len(X.columns)+1)
+    features_range = range(1, len(X_train.columns)+1)
     # len(features_range)
 
     # set "high score" to be the lowest possible score
@@ -150,9 +150,9 @@ def num_optimal_features(X_train, y_train, X_test, y_test):
     # so feature count = len(X_train_scaled.columns)
     for n in features_range:
         model = LinearRegression()
-        train_rfe = RFE(model, n).fit_transform(X, y)
-        model.fit(train_rfe, y)
-        score = model.score(train_rfe, y)
+        train_rfe = RFE(model, n).fit_transform(X_train, y_train)
+        model.fit(train_rfe, y_train)
+        score = model.score(train_rfe, y_train)
         # score_list.append(score)
         if(score > high_score):
             high_score = score
@@ -168,7 +168,7 @@ def num_optimal_features(X_train, y_train, X_test, y_test):
 def optimal_features(n):
     '''Taking the output of optimal_number_of_features, as n, and use that value to 
     run recursive feature elimination to find the n best features'''
-    cols = list(X_train.columns)
+    cols = list(X_train_scaled.columns)
     model = LinearRegression()
     
     #Initializing RFE model
